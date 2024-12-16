@@ -1,0 +1,13 @@
+<ion-header-bar class="bar-stable">
+    <h1 class="title">Matches</h1>
+</ion-header-bar>
+
+<ion-content>
+    <ion-list>
+        <ion-item ng-repeat="match in matches">
+            <h2>{{match.team1}} vs {{match.team2}}</h2>
+            <p>Score: {{match.team1Score}} - {{match.team2Score}} | Date: {{match.date}}</p>
+        </ion-item>
+    </ion-list>
+    <button class="button button-positive" ng-click="addMatch()">Add Match</button>
+</ion-content>

@@ -1,0 +1,41 @@
+<ion-view view-title="login">
+    <ion-content>
+        <div class="login-card">
+            <div>
+                <div class="logo-container">
+                    <img src="img/logo.png" alt="Logo" class="login-logo">
+                </div>
+
+                <form name="loginForm" ng-submit="login()">
+
+                    <!-- Email input -->
+                    <div class="list">
+                        <label class="item item-input b-r-10">
+                            <input type="email" name="email" placeholder="Email" ng-model="user.email"
+                                required />
+                        </label>
+                        <!-- Validation message for email -->
+                        <div class="error-message" ng-show="loginForm.email.$touched && loginForm.email.$invalid">
+                            <span class="error-text">Email is required.</span>
+                        </div>
+                    </div>
+
+                    <!-- Password input -->
+                    <div class="list">
+                        <label class="item item-input b-r-10">
+                            <input type="password" name="password" placeholder="Password" ng-model="user.password"
+                                required />
+                        </label>
+                        <!-- Validation message for password -->
+                        <div class="error-message" ng-show="loginForm.password.$touched && loginForm.password.$invalid">
+                            <span class="error-text">Password is required.</span>
+                        </div>
+                    </div>
+
+                    <!-- Login button -->
+                    <button class="button button-block button-positive b-r-10" type="submit">Login</button>
+                </form>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,16 @@
+<ion-header-bar class="bar-stable">
+    <h1 class="title">Teams</h1>
+  </ion-header-bar>
+  
+  <ion-content>
+    <ion-list>
+      <ion-item ng-repeat="team in teams">
+        <h2>{{team.name}}</h2>
+        <p>Coach: {{team.coach}}</p>
+        <button class="button button-stable" ng-click="editTeam(team)">Edit</button>
+        <button class="button button-assertive" ng-click="removeTeam(team)">Remove</button>
+      </ion-item>
+    </ion-list>
+    <button class="button button-positive" ng-click="addTeam()">Add Team</button>
+  </ion-content>
+  

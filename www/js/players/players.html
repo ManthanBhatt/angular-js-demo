@@ -1,0 +1,15 @@
+<ion-header-bar class="bar-stable">
+  <h1 class="title">Players</h1>
+</ion-header-bar>
+
+<ion-content>
+  <ion-list>
+    <ion-item ng-repeat="player in players">
+      <h2>{{player.name}}</h2>
+      <p>Position: {{player.position}} | Age: {{player.age}} | Team: {{player.team}}</p>
+      <button class="button button-stable" ng-click="editPlayer(player)">Edit</button>
+      <button class="button button-assertive" ng-click="removePlayer(player)">Remove</button>
+    </ion-item>
+  </ion-list>
+  <button class="button button-positive" ng-click="addPlayer()">Add Player</button>
+</ion-content>
