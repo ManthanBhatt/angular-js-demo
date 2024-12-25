@@ -7,38 +7,40 @@
 </ion-header-bar>
 
 <ion-content>
-  <section ng-if="players.length === 0 && !showForm">
-    <div class="no-record">
-      <div class="no-record-container">
-        <i class="ion-alert-circled"></i>
-        <h4>No players available!</h4>
-      </div>
-    </div>
-  </section>
-  <section class="row responsive-sm" ng-if="!showForm">
-    <div class="card col-33 border-radius-16" ng-repeat="player in players track by $index">
-      <div class="item item-text-wrap">
-        <h2>{{player.first_name}} {{player.last_name}}</h2>
-        <p>
-          Email: {{player.email}} <br>
-          Position: {{player.position}}
-        </p>
-        <div class="text-end">
-          <button class="button button-energized button-with-icon" ng-click="openForm($index)">
-            <span class="ion-android-create"></span>
-          </button>
-          <button class="button button-assertive button-with-icon" ng-click="removePlayer($index)">
-            <span class="ion-trash-a"></span>
-          </button>
+  <no-record-found ng-if="players.length === 0 && !showForm" label="No player added!"></no-record-found>
+  <section class="row responsive-sm responsive-md" ng-repeat="row in players track by $index" ng-init="rind = $index" ng-if="!showForm">
+    <section class="col col-33" ng-repeat="player in row track by $index" ng-init="ind = $index">
+      <div class="card border-radius-16">
+        <div class="item item-text-wrap">
+          <div class="row">
+            <div class="col-25">
+              <img src="./img/{{player.position}}.svg" style="width: 3.5rem;" />
+            </div>
+            <div class="col-75">
+              <h2>{{player.first_name}} {{player.last_name}}</h2>
+              <p>
+                Email: {{player.email}} <br>
+                Position: {{player.position}}
+              </p>
+              <div class="text-end">
+                <button class="button button-energized button-with-icon" ng-click="openForm(rind,ind)">
+                  <span class="ion-android-create"></span>
+                </button>
+                <button class="button button-assertive button-with-icon" ng-click="remove(rind,ind)">
+                  <span class="ion-trash-a"></span>
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
   </section>
-  <section ng-if="showForm" class="row responsive-sm">
+  <section ng-if="showForm" class="row responsive-sm padding-vertical">
     <div class="col-25"></div>
     <div class="col-50">
-      <h2>{{player.id?'Edit':'Add'}} New Player</h2>
-      <form name="playerForm" ng-submit="savePlayer()">
+      <h2>{{player.id?'Edit':'Add'}} Player</h2>
+      <form name="playerForm" ng-submit="save()">
         <div class="list">
           <label class="item item-input item-stacked-label top-border-radius">
             <span class="input-label">First Name</span>
@@ -78,7 +80,8 @@
           </label>
           <div class="row">
             <div class="col-50 padding-horizontal">
-              <button class="button button-block button-stable b-r-10 w-50" type="clear" ng-click="closeForm()">Cancel</button>
+              <button class="button button-block button-stable b-r-10 w-50" type="clear"
+                ng-click="closeForm()">Cancel</button>
             </div>
             <div class="col-50 padding-horizontal">
               <button class="button button-block button-positive b-r-10 w-50" type="submit">Save</button>

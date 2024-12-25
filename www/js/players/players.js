@@ -1,18 +1,20 @@
 angular.module('teamManager.players', [])
   .controller('PlayersCtrl', function ($scope, dataService, $state) {
-    $scope.players = dataService.getPlayers();
+    $scope.players = dataService.getPlayers(true);
     $scope.showForm = false;
     $scope.player = {};
 
     $scope.getPlayers = function () {
-      $scope.players = dataService.getPlayers();
+      $scope.players = dataService.getPlayers(true);
+      console.log($scope.players);
     }
 
-    $scope.openForm = function (ind = -1) {
+    $scope.openForm = function (rInd = -1, ind = -1) {
       $scope.showForm = true;
       $scope.player = {};
-      if (ind > -1) {
-        $scope.player = angular.copy($scope.players[ind]);
+      if (rInd > -1 && ind > -1) {
+        const players = $scope.players[rInd];
+        $scope.player = angular.copy(players[ind]);
       }
       setTimeout(() => {
         document.getElementById('first_name').focus();
@@ -22,37 +24,36 @@ angular.module('teamManager.players', [])
     $scope.closeForm = function () {
       $scope.showForm = false;
       $scope.player = {};
+      $scope.getPlayers();
     };
 
-    $scope.savePlayer = function () {
+    $scope.save = function () {
       if ($scope.player.id) {
-        $scope.updatePlater();
+        $scope.update();
       } else {
-        $scope.addPlayer();
+        $scope.add();
       }
     }
 
-    $scope.addPlayer = function () {
+    $scope.add = function () {
       dataService.addPlayer($scope.player);
       $scope.showForm = false;
       $scope.getPlayers();
     };
 
-    $scope.updatePlater = function () {
-      const ind = $scope.players.findIndex(p => p.id === $scope.player.id);
-      if (ind > -1) {
-        dataService.updatePlayer(ind, $scope.player);
-        $scope.showForm = false;
-        $scope.getPlayers();
-      }
+    $scope.update = function () {
+      dataService.updatePlayer($scope.player.id, $scope.player);
+      $scope.showForm = false;
+      $scope.getPlayers();
     };
 
-    $scope.removePlayer = function (ind) {
-      const player = $scope.players[ind];
+    $scope.remove = function (rInd, ind) {
+      const players = $scope.players[rInd];
+      const player = players[ind];
       const resp = confirm(`Are you sure you want to remove ${player.first_name} ${player.last_name}?`);
       if (resp) {
-        $scope.players.splice(ind, 1);
-        dataService.removePlayer(ind);
+        dataService.removePlayer(player.id);
       }
+      $scope.getPlayers();
     };
   });
