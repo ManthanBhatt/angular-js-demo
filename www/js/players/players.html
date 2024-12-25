@@ -1,15 +1,92 @@
 <ion-header-bar class="bar-stable">
+  <button class="button button-icon ion-navicon" menu-toggle="left"></button>
   <h1 class="title">Players</h1>
+  <button class="button button-positive rounded-icon-btn" ng-click="openForm()">
+    <span class="ion-android-add"></span>
+  </button>
 </ion-header-bar>
 
 <ion-content>
-  <ion-list>
-    <ion-item ng-repeat="player in players">
-      <h2>{{player.name}}</h2>
-      <p>Position: {{player.position}} | Age: {{player.age}} | Team: {{player.team}}</p>
-      <button class="button button-stable" ng-click="editPlayer(player)">Edit</button>
-      <button class="button button-assertive" ng-click="removePlayer(player)">Remove</button>
-    </ion-item>
-  </ion-list>
-  <button class="button button-positive" ng-click="addPlayer()">Add Player</button>
+  <section ng-if="players.length === 0 && !showForm">
+    <div class="no-record">
+      <div class="no-record-container">
+        <i class="ion-alert-circled"></i>
+        <h4>No players available!</h4>
+      </div>
+    </div>
+  </section>
+  <section class="row responsive-sm" ng-if="!showForm">
+    <div class="card col-33 border-radius-16" ng-repeat="player in players track by $index">
+      <div class="item item-text-wrap">
+        <h2>{{player.first_name}} {{player.last_name}}</h2>
+        <p>
+          Email: {{player.email}} <br>
+          Position: {{player.position}}
+        </p>
+        <div class="text-end">
+          <button class="button button-energized button-with-icon" ng-click="openForm($index)">
+            <span class="ion-android-create"></span>
+          </button>
+          <button class="button button-assertive button-with-icon" ng-click="removePlayer($index)">
+            <span class="ion-trash-a"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section ng-if="showForm" class="row responsive-sm">
+    <div class="col-25"></div>
+    <div class="col-50">
+      <h2>{{player.id?'Edit':'Add'}} New Player</h2>
+      <form name="playerForm" ng-submit="savePlayer()">
+        <div class="list">
+          <label class="item item-input item-stacked-label top-border-radius">
+            <span class="input-label">First Name</span>
+            <input type="text" required ng-model="player.first_name" id="first_name" name="first_name">
+            <div class="error-message" ng-show="playerForm.first_name.$touched && playerForm.first_name.$invalid">
+              <span class="error-text">First name is required.</span>
+            </div>
+          </label>
+          <label class="item item-input item-stacked-label">
+            <span class="input-label">Last Name</span>
+            <input type="text" required ng-model="player.last_name" id="last_name" name="last_name">
+            <div class="error-message" ng-show="playerForm.last_name.$touched && playerForm.last_name.$invalid">
+              <span class="error-text">Last name is required.</span>
+            </div>
+          </label>
+          <label class="item item-input item-stacked-label">
+            <span class="input-label">Email</span>
+            <input type="email" required ng-model="player.email" id="email" name="email">
+            <div class="error-message" ng-show="playerForm.email.$touched && playerForm.email.$invalid">
+              <span class="error-text">Email is required.</span>
+            </div>
+          </label>
+          <label class="item item-input item-select bottom-border-radius">
+            <div class="input-label">
+              Position
+            </div>
+            <select required ng-model="player.position" name="position">
+              <option value="" selected>Select</option>
+              <option value="goalkeeper">Goalkeeper</option>
+              <option value="defender">Defender</option>
+              <option value="midfielder">Midfielder</option>
+              <option value="forward">Forward</option>
+            </select>
+            <div class="error-message" ng-show="playerForm.position.$touched && playerForm.position.$invalid">
+              <span class="error-text">Position is required.</span>
+            </div>
+          </label>
+          <div class="row">
+            <div class="col-50 padding-horizontal">
+              <button class="button button-block button-stable b-r-10 w-50" type="clear" ng-click="closeForm()">Cancel</button>
+            </div>
+            <div class="col-50 padding-horizontal">
+              <button class="button button-block button-positive b-r-10 w-50" type="submit">Save</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="col-25"></div>
+  </section>
 </ion-content>
