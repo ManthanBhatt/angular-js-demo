@@ -1,4 +1,4 @@
-angular.module('teamManager', ['ionic', 'teamManager.login', 'teamManager.home', 'teamManager.players', 'teamManager.teams', 'teamManager.matches', 'teamManager.services', 'teamManager.directives'])
+angular.module('teamManager', ['ionic', 'teamManager.login', 'teamManager.home', 'teamManager.players', 'teamManager.teams', 'teamManager.matches', 'teamManager.services','components'])
   .config(function ($stateProvider, $urlRouterProvider) {
 
     $stateProvider
@@ -40,4 +40,6 @@ angular.module('teamManager', ['ionic', 'teamManager.login', 'teamManager.home',
         StatusBar.styleDefault();
       }
     });
+  }).filter('titleCase', function () {
+    return titleCase;
   });
