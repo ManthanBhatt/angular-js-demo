@@ -25,7 +25,8 @@
   <script src="js/teams/teams.js"></script>
   <script src="js/matches/matches.js"></script>
   <script src="js/services/dataService.js"></script>
-  <script src="js/directives/searchFilter.js"></script>
+  <script src="js/pipes/titleCase.js"></script>
+  <script src="js/components/no-record-found/no-record-found.js"></script>
 </head>
 
 <body ng-app="teamManager">
@@ -49,16 +50,19 @@
       <ion-content>
         <ion-list>
           <ion-item menu-close href="#/home">
-            <ion-icon name="home" item-left></ion-icon> Home
+            Home
           </ion-item>
           <ion-item menu-close href="#/players">
-            <ion-icon name="person" item-left></ion-icon> Players
+            Players
           </ion-item>
           <ion-item menu-close href="#/teams">
-            <ion-icon name="clipboard" item-left></ion-icon> Teams
+            Teams
           </ion-item>
           <ion-item menu-close href="#/matches">
-            <ion-icon name="trophy" item-left></ion-icon> Matches
+            Matches
+          </ion-item>
+          <ion-item menu-close href="#/login">
+            Logout
           </ion-item>
         </ion-list>
       </ion-content>
