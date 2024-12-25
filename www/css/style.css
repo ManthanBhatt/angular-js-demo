@@ -82,3 +82,7 @@
     box-shadow: none;
     border: 1px solid lightgrey;
 }
+
+.svg-icon {
+    width: 3.5rem;
+}
