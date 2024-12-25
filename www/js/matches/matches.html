@@ -1,13 +1,92 @@
 <ion-header-bar class="bar-stable">
+    <button class="button button-icon ion-navicon" menu-toggle="left"></button>
     <h1 class="title">Matches</h1>
+    <button class="button button-positive rounded-icon-btn" ng-click="openForm()">
+        <span class="ion-android-add"></span>
+    </button>
 </ion-header-bar>
 
 <ion-content>
-    <ion-list>
-        <ion-item ng-repeat="match in matches">
-            <h2>{{match.team1}} vs {{match.team2}}</h2>
-            <p>Score: {{match.team1Score}} - {{match.team2Score}} | Date: {{match.date}}</p>
-        </ion-item>
-    </ion-list>
-    <button class="button button-positive" ng-click="addMatch()">Add Match</button>
+    <no-record-found ng-if="matches.length === 0 && !showForm" label="No match added!"></no-record-found>
+    <section class="row responsive-sm responsive-md" ng-repeat="row in matches track by $index" ng-init="rind = $index"
+        ng-if="!showForm">
+        <section class="col col-33" ng-repeat="match in row track by $index" ng-init="ind = $index">
+            <div class="card border-radius-16">
+                <div class="item item-text-wrap">
+                    <h2>Match</h2>
+                    <p>
+                        {{match.team_one.name}} vs {{match.team_two.name}} <br>
+                        at {{match.date}}
+                    </p>
+                    <div class="text-end">
+                        <button class="button button-energized button-with-icon" ng-click="openForm(rind,ind)">
+                            <span class="ion-android-create"></span>
+                        </button>
+                        <button class="button button-assertive button-with-icon" ng-click="remove(rind,ind)">
+                            <span class="ion-trash-a"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+    <section ng-if="showForm" class="row responsive-sm padding-vertical">
+        <div class="col-25"></div>
+        <div class="col-50">
+            <h2>{{match.id?'Edit':'Create'}} Match</h2>
+            <form name="matchForm" ng-submit="save()">
+                <div class="list">
+                    <label class="item item-input item-select top-border-radius">
+                        <div class="input-label">
+                            Home Team
+                        </div>
+                        <select required ng-model="match.team_one_id" name="team_one_id">
+                            <option value="" selected>Select</option>
+                            <option value="{{team.id}}" ng-if="match.team_two_id != team.id"
+                                ng-repeat="team in teams track by $index">
+                                {{team.name}}
+                            </option>
+                        </select>
+                        <div class="error-message"
+                            ng-show="matchForm.team_one_id.$touched && matchForm.team_one_id.$invalid">
+                            <span class="error-text">Home team is required.</span>
+                        </div>
+                    </label>
+                    <label class="item item-input item-select">
+                        <div class="input-label">
+                            Opponent Team
+                        </div>
+                        <select required ng-model="match.team_two_id" name="team_two_id">
+                            <option value="" selected>Select</option>
+                            <option value="{{team.id}}" ng-if="match.team_one_id != team.id"
+                                ng-repeat="team in teams track by $index">
+                                {{team.name}}
+                            </option>
+                        </select>
+                        <div class="error-message"
+                            ng-show="matchForm.team_two_id.$touched && matchForm.team_two_id.$invalid">
+                            <span class="error-text">Opponent team is required.</span>
+                        </div>
+                    </label>
+                    <label class="item item-input item-stacked-label bottom-border-radius">
+                        <span class="input-label">Date</span>
+                        <input type="date" required ng-model="match.date" id="date" name="date">
+                        <div class="error-message" ng-show="matchForm.date.$touched && matchForm.date.$invalid">
+                            <span class="error-text">Date is required.</span>
+                        </div>
+                    </label>
+                    <div class="row">
+                        <div class="col-50 padding-horizontal">
+                            <button class="button button-block button-stable b-r-10 w-50" type="clear"
+                                ng-click="closeForm()">Cancel</button>
+                        </div>
+                        <div class="col-50 padding-horizontal">
+                            <button class="button button-block button-positive b-r-10 w-50" type="submit">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-25"></div>
+    </section>
 </ion-content>
