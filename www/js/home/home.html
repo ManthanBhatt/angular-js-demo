@@ -4,8 +4,57 @@
 </ion-header-bar>
 
 <ion-content>
-    <h3>Statistics</h3>
-    <p>Number of Players: {{playerCount}}</p>
-    <p>Number of Teams: {{teamCount}}</p>
-    <p>Number of Matches: {{matchCount}}</p>
+    <section class="row responsive-sm responsive-md">
+        <section class="col col-33">
+            <div class="card border-radius-16">
+                <div class="item item-text-wrap">
+                    <div class="row">
+                        <div class="col-25">
+                            <img src="./img/forward.svg" style="width: 3.5rem;" />
+                        </div>
+                        <div class="col-75">
+                            <h3>Player</h3>
+                            <p>
+                                Total {{playerCount}} players added.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="col col-33">
+            <div class="card border-radius-16">
+                <div class="item item-text-wrap">
+                    <div class="row">
+                        <div class="col-25">
+                            <img src="./img/team.svg" style="width: 3.5rem;" />
+                        </div>
+                        <div class="col-75">
+                            <h3>Team</h3>
+                            <p>
+                                Total {{teamCount}} team created.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="col col-33">
+            <div class="card border-radius-16">
+                <div class="item item-text-wrap">
+                    <div class="row">
+                        <div class="col-25">
+                            <img src="./img/football.svg" style="width: 3.5rem;" />
+                        </div>
+                        <div class="col-75">
+                            <h3>Match</h3>
+                            <p>
+                                Total {{matchCount}} match played.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
 </ion-content>
