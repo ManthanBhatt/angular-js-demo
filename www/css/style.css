@@ -77,3 +77,8 @@
         text-align: center;
     }
 }
+
+.card {
+    box-shadow: none;
+    border: 1px solid lightgrey;
+}
