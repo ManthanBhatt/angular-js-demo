@@ -2,8 +2,6 @@ angular.module('teamManager.matches', [])
     .controller('MatchesCtrl', function ($scope, dataService, $state) {
         $scope.matches = dataService.getMatches();
         $scope.teams = dataService.getTeams();
-        console.log($scope.matches);
-        
         $scope.players = dataService.getPlayers();
         $scope.showForm = false;
         $scope.match = {};
@@ -33,7 +31,6 @@ angular.module('teamManager.matches', [])
         $scope.closeForm = function () {
             $scope.showForm = false;
             $scope.match = {};
-            $scope.getMatches();
         };
 
         $scope.save = function () {
@@ -68,7 +65,7 @@ angular.module('teamManager.matches', [])
             const resp = confirm(`Are you sure you want to remove the match?`);
             if (resp) {
                 dataService.removeMatch(match.id);
+                $scope.getMatches();
             }
-            $scope.getMatches();
         };
     });
