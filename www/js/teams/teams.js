@@ -1,7 +1,6 @@
 angular.module('teamManager.teams', [])
     .controller('TeamsCtrl', function ($scope, dataService, $state) {
         $scope.teams = dataService.getTeams(true);
-        console.log('teams', $scope.teams);
         $scope.players = dataService.getPlayers();
         $scope.showForm = false;
         $scope.team = {};
@@ -32,15 +31,11 @@ angular.module('teamManager.teams', [])
                     }
                 })
             }
-            setTimeout(() => {
-                document.getElementById('name').focus();
-            }, 1000);
         }
 
         $scope.closeForm = function () {
             $scope.showForm = false;
             $scope.team = {};
-            $scope.getTeams();
         };
 
         $scope.save = function () {
@@ -66,8 +61,7 @@ angular.module('teamManager.teams', [])
         };
 
         $scope.setPlayers = function () {
-            console.log($scope.team, $scope.players);
-            const players = $scope.players.filter(player => player.selected === true).map(player => player.id);
+            const players = $scope.players.filter(player => player.selected).map(player => player.id);
             $scope.team.players = players;
         }
 
@@ -77,7 +71,7 @@ angular.module('teamManager.teams', [])
             const resp = confirm(`Are you sure you want to remove ${team.name}?`);
             if (resp) {
                 dataService.removeTeam(team.id);
+                $scope.getTeams();
             }
-            $scope.getTeams();
         };
     });
