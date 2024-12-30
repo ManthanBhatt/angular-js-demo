@@ -8,7 +8,8 @@
 
 <ion-content>
   <no-record-found ng-if="players.length === 0 && !showForm" label="No player added!"></no-record-found>
-  <section class="row responsive-sm responsive-md" ng-repeat="row in players track by $index" ng-init="rind = $index" ng-if="!showForm">
+  <section class="row responsive-sm responsive-md" ng-repeat="row in players track by $index" ng-init="rind = $index"
+    ng-if="!showForm">
     <section class="col col-33" ng-repeat="player in row track by $index" ng-init="ind = $index">
       <div class="card border-radius-16">
         <div class="item item-text-wrap">
@@ -42,28 +43,26 @@
       <h2>{{player.id?'Edit':'Add'}} Player</h2>
       <form name="playerForm" ng-submit="save()">
         <div class="list">
-          <label class="item item-input item-stacked-label top-border-radius">
+          <label class="item item-input b-r-10"
+            ng-class="{'invalid-input': playerForm.first_name.$touched && playerForm.first_name.$invalid}">
             <span class="input-label">First Name</span>
-            <input type="text" required ng-model="player.first_name" id="first_name" name="first_name">
-            <div class="error-message" ng-show="playerForm.first_name.$touched && playerForm.first_name.$invalid">
-              <span class="error-text">First name is required.</span>
-            </div>
+            <input type="text" autofocus="true" required ng-model="player.first_name" id="first_name" name="first_name">
           </label>
-          <label class="item item-input item-stacked-label">
+        </div>
+        <div class="list">
+          <label class="item item-input b-r-10" ng-class="{'invalid-input': playerForm.last_name.$touched && playerForm.last_name.$invalid}">
             <span class="input-label">Last Name</span>
             <input type="text" required ng-model="player.last_name" id="last_name" name="last_name">
-            <div class="error-message" ng-show="playerForm.last_name.$touched && playerForm.last_name.$invalid">
-              <span class="error-text">Last name is required.</span>
-            </div>
           </label>
-          <label class="item item-input item-stacked-label">
+        </div>
+        <div class="list">
+          <label class="item item-input b-r-10" ng-class="{'invalid-input': playerForm.email.$touched && playerForm.email.$invalid}">
             <span class="input-label">Email</span>
             <input type="email" required ng-model="player.email" id="email" name="email">
-            <div class="error-message" ng-show="playerForm.email.$touched && playerForm.email.$invalid">
-              <span class="error-text">Email is required.</span>
-            </div>
           </label>
-          <label class="item item-input item-select bottom-border-radius">
+        </div>
+        <div class="list">
+          <label class="item item-input item-select b-r-10" ng-class="{'invalid-input': playerForm.position.$touched && playerForm.position.$invalid}">
             <div class="input-label">
               Position
             </div>
@@ -74,21 +73,19 @@
               <option value="midfielder">Midfielder</option>
               <option value="forward">Forward</option>
             </select>
-            <div class="error-message" ng-show="playerForm.position.$touched && playerForm.position.$invalid">
-              <span class="error-text">Position is required.</span>
-            </div>
           </label>
-          <div class="row">
-            <div class="col-50 padding-horizontal">
-              <button class="button button-block button-stable b-r-10 w-50" type="clear"
-                ng-click="closeForm()">Cancel</button>
-            </div>
-            <div class="col-50 padding-horizontal">
-              <button class="button button-block button-positive b-r-10 w-50" type="submit">Save</button>
-            </div>
+        </div>
+        <div class="row">
+          <div class="col-50 padding-horizontal">
+            <button class="button button-block button-stable b-r-10 w-50" type="clear"
+              ng-click="closeForm()">Cancel</button>
+          </div>
+          <div class="col-50 padding-horizontal">
+            <button class="button button-block button-positive b-r-10 w-50" type="submit">Save</button>
           </div>
         </div>
-      </form>
+    </div>
+    </form>
     </div>
     <div class="col-25"></div>
   </section>
