@@ -37,21 +37,19 @@
       <h2>{{team.id?'Edit':'Add'}} Team</h2>
       <form name="teamForm" ng-submit="save()">
         <div class="list">
-          <label class="item item-input item-stacked-label">
+          <label class="item item-input b-r-10" ng-class="{'invalid-input': teamForm.name.$touched && teamForm.name.$invalid}">
             <span class="input-label">Team Name</span>
-            <input type="text" required ng-model="team.name" id="name" name="name">
-            <div class="error-message" ng-show="teamForm.name.$touched && teamForm.name.$invalid">
-              <span class="error-text">Team name is required.</span>
-            </div>
+            <input type="text" autofocus required ng-model="team.name" id="name" name="name">
           </label>
-          <label class="item item-input item-stacked-label">
+        </div>
+        <div class="list">
+          <label class="item item-input b-r-10" ng-class="{'invalid-input': teamForm.club_name.$touched && teamForm.club_name.$invalid}">
             <span class="input-label">Club Name</span>
             <input type="text" required ng-model="team.club_name" id="club_name" name="club_name">
-            <div class="error-message" ng-show="teamForm.club_name.$touched && teamForm.club_name.$invalid">
-              <span class="error-text">Last name is required.</span>
-            </div>
           </label>
-          <label class="item item-input item-select">
+        </div>
+        <div class="list">
+          <label class="item item-input item-select b-r-10" ng-class="{'invalid-input': teamForm.country.$touched && teamForm.country.$invalid}">
             <div class="input-label">
               Country
             </div>
@@ -65,28 +63,25 @@
               <option value="Morocco">Morocco</option>
               <option value="Spain">Spain</option>
             </select>
-            <div class="error-message" ng-show="teamForm.country.$touched && teamForm.country.$invalid">
-              <span class="error-text">Country is required.</span>
-            </div>
           </label>
-          <label>
-            <h4>
-              Players
-            </h4>
-            <ion-list>
-              <ion-checkbox ng-model="player.selected" ng-repeat="player in players track by $index">
-                {{player.first_name}} {{player.last_name}} - [{{player.position | titleCase}}]
-              </ion-checkbox>
-            </ion-list>
-          </label>
-          <div class="row">
-            <div class="col-50 padding-horizontal">
-              <button class="button button-block button-stable b-r-10 w-50" type="clear"
-                ng-click="closeForm()">Cancel</button>
-            </div>
-            <div class="col-50 padding-horizontal">
-              <button class="button button-block button-positive b-r-10 w-50" type="submit">Save</button>
-            </div>
+        </div>
+        <label>
+          <h4>
+            Players
+          </h4>
+          <ion-list>
+            <ion-checkbox ng-model="player.selected" ng-repeat="player in players track by $index">
+              {{player.first_name}} {{player.last_name}} - [{{player.position | titleCase}}]
+            </ion-checkbox>
+          </ion-list>
+        </label>
+        <div class="row">
+          <div class="col-50 padding-horizontal">
+            <button class="button button-block button-stable b-r-10 w-50" type="clear"
+              ng-click="closeForm()">Cancel</button>
+          </div>
+          <div class="col-50 padding-horizontal">
+            <button class="button button-block button-positive b-r-10 w-50" type="submit">Save</button>
           </div>
         </div>
       </form>
