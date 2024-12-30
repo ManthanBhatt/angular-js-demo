@@ -1,4 +1,4 @@
-angular.module('teamManager', ['ionic', 'teamManager.login', 'teamManager.home', 'teamManager.players', 'teamManager.teams', 'teamManager.matches', 'teamManager.services','components'])
+angular.module('teamManager', ['ionic', 'teamManager.login', 'teamManager.home', 'teamManager.players', 'teamManager.teams', 'teamManager.matches', 'teamManager.services', 'components', 'utils.autofocus'])
   .config(function ($stateProvider, $urlRouterProvider) {
 
     $stateProvider
