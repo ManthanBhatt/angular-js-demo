@@ -6,7 +6,6 @@ angular.module('teamManager.players', [])
 
     $scope.getPlayers = function () {
       $scope.players = dataService.getPlayers(true);
-      console.log($scope.players);
     }
 
     $scope.openForm = function (rInd = -1, ind = -1) {
@@ -16,15 +15,11 @@ angular.module('teamManager.players', [])
         const players = $scope.players[rInd];
         $scope.player = angular.copy(players[ind]);
       }
-      setTimeout(() => {
-        document.getElementById('first_name').focus();
-      }, 1000);
     }
 
     $scope.closeForm = function () {
       $scope.showForm = false;
       $scope.player = {};
-      $scope.getPlayers();
     };
 
     $scope.save = function () {
@@ -50,10 +45,32 @@ angular.module('teamManager.players', [])
     $scope.remove = function (rInd, ind) {
       const players = $scope.players[rInd];
       const player = players[ind];
-      const resp = confirm(`Are you sure you want to remove ${player.first_name} ${player.last_name}?`);
+      const teams = dataService.getTeams();
+      let teamName = '';
+      const playerTeams = [];
+      teams.forEach(team => {
+        const ind = team.players.findIndex(p => p === player.id);
+        if (ind > -1) {
+          team.players.splice(ind, 1);
+          playerTeams.push(team);
+          if (teamName === '') {
+            teamName = team.name;
+          } else {
+            teamName += `, ${team.name}`;
+          }
+        }
+      });
+      const playerName = `${player.first_name} ${player.last_name}`;
+      let msg = ''
+      if (playerTeams.length > 0) {
+        msg = `${playerName} is also part of the following teams: ${teamName}\n`;
+      }
+      msg += `Are you sure you want to remove ${playerName}?`;
+      const resp = confirm(msg);
       if (resp) {
         dataService.removePlayer(player.id);
+        playerTeams.forEach(team => dataService.updateTeam(team.id, team));
+        $scope.getPlayers();
       }
-      $scope.getPlayers();
     };
   });
