@@ -8,23 +8,17 @@
 
                 <form name="loginForm" ng-submit="login()">
                     <div class="list">
-                        <label class="item item-input b-r-10">
+                        <label class="item item-input b-r-10" ng-class="{'invalid-input': loginForm.email.$touched && loginForm.email.$invalid}">
                             <input type="email" name="email" placeholder="Email" ng-model="user.email"
-                                required />
+                                required/>
                         </label>
-                        <div class="error-message" ng-show="loginForm.email.$touched && loginForm.email.$invalid">
-                            <span class="error-text">Email is required.</span>
-                        </div>
                     </div>
 
                     <div class="list">
-                        <label class="item item-input b-r-10">
+                        <label class="item item-input b-r-10" ng-class="{'invalid-input': loginForm.password.$touched && loginForm.password.$invalid}">
                             <input type="password" name="password" placeholder="Password" ng-model="user.password"
                                 required />
                         </label>
-                        <div class="error-message" ng-show="loginForm.password.$touched && loginForm.password.$invalid">
-                            <span class="error-text">Password is required.</span>
-                        </div>
                     </div>
                     <div class="error-message" ng-if="errorMessage">
                         <span class="error-text">{{errorMessage}}</span>

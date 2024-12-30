@@ -9,7 +9,6 @@ angular.module('teamManager.login', [])
         $scope.errorMessage = "Invalid email or password";
         return;
       }
-      console.log('Logging in with', $scope.user);
-      $state.go('home'); // Redirect to home page after login
+      $state.go('home');
     };
   });
