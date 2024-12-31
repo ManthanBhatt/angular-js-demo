@@ -1,18 +1,10 @@
-angular.module('teamManager', ['ionic', 'teamManager.login', 'teamManager.home', 'teamManager.players', 'teamManager.teams', 'teamManager.matches', 'teamManager.services', 'components', 'utils.autofocus', 'utils.validateEmail', 'teamManager.loader'])
+angular.module('teamManager', ['ionic', 'teamManager.login', 'teamManager.home', 'teamManager.players', 'teamManager.teams', 'teamManager.matches', 'teamManager.services', 'components', 'utils.autofocus', 'utils.validateEmail'])
   .config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider
       .state('login', {
         url: '/login',
         templateUrl: 'js/login/login.html',
-        controller: 'LoginCtrl',
-        resolve: {
-          loadCSS: function (cssLoader) {
-            return cssLoader.load('js/login/login.css')
-              .catch(function (error) {
-                console.error('Error loading CSS: ', error);
-              });
-          }
-        }
+        controller: 'LoginCtrl'
       })
       .state('home', {
         url: '/home',
@@ -22,41 +14,17 @@ angular.module('teamManager', ['ionic', 'teamManager.login', 'teamManager.home',
       .state('players', {
         url: '/players',
         templateUrl: 'js/players/players.html',
-        controller: 'PlayersCtrl',
-        resolve: {
-          loadCSS: function (cssLoader) {
-            return cssLoader.load('js/components/no-record-found/no-record-found.css')
-              .catch(function (error) {
-                console.error('Error loading CSS: ', error);
-              });
-          }
-        }
+        controller: 'PlayersCtrl'
       })
       .state('teams', {
         url: '/teams',
         templateUrl: 'js/teams/teams.html',
-        controller: 'TeamsCtrl',
-        resolve: {
-          loadCSS: function (cssLoader) {
-            return cssLoader.load('js/components/no-record-found/no-record-found.css')
-              .catch(function (error) {
-                console.error('Error loading CSS: ', error);
-              });
-          }
-        }
+        controller: 'TeamsCtrl'
       })
       .state('matches', {
         url: '/matches',
         templateUrl: 'js/matches/matches.html',
-        controller: 'MatchesCtrl',
-        resolve: {
-          loadCSS: function (cssLoader) {
-            return cssLoader.load('js/components/no-record-found/no-record-found.css')
-              .catch(function (error) {
-                console.error('Error loading CSS: ', error);
-              });
-          }
-        }
+        controller: 'MatchesCtrl'
       });
 
     $urlRouterProvider.otherwise('/login');
