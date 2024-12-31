@@ -10,7 +10,7 @@
                     <div class="list">
                         <label class="item item-input b-r-10" ng-class="{'invalid-input': loginForm.email.$touched && loginForm.email.$invalid}">
                             <input type="email" name="email" placeholder="Email" ng-model="user.email"
-                                required/>
+                                required validate-email />
                         </label>
                     </div>
 

@@ -58,7 +58,7 @@
         <div class="list">
           <label class="item item-input b-r-10" ng-class="{'invalid-input': playerForm.email.$touched && playerForm.email.$invalid}">
             <span class="input-label">Email</span>
-            <input type="email" required ng-model="player.email" id="email" name="email">
+            <input type="email" required ng-model="player.email" id="email" name="email" validate-email>
           </label>
         </div>
         <div class="list">

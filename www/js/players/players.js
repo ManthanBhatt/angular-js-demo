@@ -47,12 +47,13 @@ angular.module('teamManager.players', [])
       const player = players[ind];
       const teams = dataService.getTeams();
       let teamName = '';
-      const playerTeams = [];
+      // this array contains the team names in which the player is currently playing.
+      const partOfTeams = [];
       teams.forEach(team => {
         const ind = team.players.findIndex(p => p === player.id);
         if (ind > -1) {
           team.players.splice(ind, 1);
-          playerTeams.push(team);
+          partOfTeams.push(team);
           if (teamName === '') {
             teamName = team.name;
           } else {
@@ -62,14 +63,14 @@ angular.module('teamManager.players', [])
       });
       const playerName = `${player.first_name} ${player.last_name}`;
       let msg = ''
-      if (playerTeams.length > 0) {
+      if (partOfTeams.length > 0) {
         msg = `${playerName} is also part of the following teams: ${teamName}\n`;
       }
       msg += `Are you sure you want to remove ${playerName}?`;
       const resp = confirm(msg);
       if (resp) {
         dataService.removePlayer(player.id);
-        playerTeams.forEach(team => dataService.updateTeam(team.id, team));
+        partOfTeams.forEach(team => dataService.updateTeam(team.id, team));
         $scope.getPlayers();
       }
     };

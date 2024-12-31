@@ -1,5 +1,5 @@
-angular.module('teamManager.services', [])
-    .factory('dataService', function () {
+angular.module('teamManager.services', ['angular-uuid'])
+    .factory('dataService', function (uuid) {
         const getData = (key) => {
             const data = localStorage.getItem(key);
             return data ? JSON.parse(data) : [];
@@ -10,7 +10,7 @@ angular.module('teamManager.services', [])
         }
 
         const getId = () => {
-            return new Date().getTime();
+            return uuid.v4();
         }
 
         const chunkWise = (arr, chunk) => {
@@ -30,7 +30,7 @@ angular.module('teamManager.services', [])
         }
 
         const setTeamObj = (match, team_id, key) => {
-            const ind = getInd(data.teams, parseInt(team_id), 'id');
+            const ind = getInd(data.teams, team_id, 'id');
             match[key] = data.teams[ind];
             match[key].players = match[key].players.map(player_id => {
                 const ind = getInd(data.players, player_id, 'id');
@@ -89,8 +89,8 @@ angular.module('teamManager.services', [])
             },
             getMatches: function () {
                 data.matches = data.matches.filter(function (match) {
-                    match.team_one = setTeamObj(match,match.team_one_id, "team_one");
-                    match.team_two = setTeamObj(match,match.team_two_id, "team_two");
+                    match.team_one = setTeamObj(match, match.team_one_id, "team_one");
+                    match.team_two = setTeamObj(match, match.team_two_id, "team_two");
                     return match;
                 });
                 return chunkWise(data.matches, 3);
