@@ -1,5 +1,5 @@
-angular.module('teamManager.services', [])
-    .factory('dataService', function () {
+angular.module('teamManager.services', ['angular-uuid'])
+    .factory('dataService', function (uuid) {
         const getData = (key) => {
             const data = localStorage.getItem(key);
             return data ? JSON.parse(data) : [];
@@ -10,9 +10,7 @@ angular.module('teamManager.services', [])
         }
 
         const getId = () => {
-            return "10000000-1000-4000-8000-100000000000".replace(/[018]/g, c =>
-                (+c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> +c / 4).toString(16)
-            );
+            return uuid.v4();
         }
 
         const chunkWise = (arr, chunk) => {
