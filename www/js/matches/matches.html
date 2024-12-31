@@ -36,7 +36,7 @@
             <h2>{{match.id?'Edit':'Create'}} Match</h2>
             <form name="matchForm" ng-submit="save()">
                 <div class="list">
-                    <label class="item item-input item-select top-border-radius">
+                    <label class="item item-input item-select b-r-10">
                         <div class="input-label">
                             Home Team
                         </div>
@@ -52,7 +52,9 @@
                             <span class="error-text">Home team is required.</span>
                         </div>
                     </label>
-                    <label class="item item-input item-select">
+                </div>
+                <div class="list">
+                    <label class="item item-input item-select b-r-10">
                         <div class="input-label">
                             Opponent Team
                         </div>
@@ -68,7 +70,9 @@
                             <span class="error-text">Opponent team is required.</span>
                         </div>
                     </label>
-                    <label class="item item-input item-stacked-label bottom-border-radius">
+                </div>
+                <div class="list">
+                    <label class="item item-input b-r-10">
                         <span class="input-label">Date</span>
                         <input type="date" required ng-model="match.date" id="date" name="date">
                         <div class="error-message" ng-show="matchForm.date.$touched && matchForm.date.$invalid">
