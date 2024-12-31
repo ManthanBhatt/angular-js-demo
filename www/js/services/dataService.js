@@ -10,7 +10,9 @@ angular.module('teamManager.services', [])
         }
 
         const getId = () => {
-            return new Date().getTime();
+            return "10000000-1000-4000-8000-100000000000".replace(/[018]/g, c =>
+                (+c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> +c / 4).toString(16)
+            );
         }
 
         const chunkWise = (arr, chunk) => {
@@ -30,7 +32,7 @@ angular.module('teamManager.services', [])
         }
 
         const setTeamObj = (match, team_id, key) => {
-            const ind = getInd(data.teams, parseInt(team_id), 'id');
+            const ind = getInd(data.teams, team_id, 'id');
             match[key] = data.teams[ind];
             match[key].players = match[key].players.map(player_id => {
                 const ind = getInd(data.players, player_id, 'id');
@@ -89,8 +91,8 @@ angular.module('teamManager.services', [])
             },
             getMatches: function () {
                 data.matches = data.matches.filter(function (match) {
-                    match.team_one = setTeamObj(match,match.team_one_id, "team_one");
-                    match.team_two = setTeamObj(match,match.team_two_id, "team_two");
+                    match.team_one = setTeamObj(match, match.team_one_id, "team_one");
+                    match.team_two = setTeamObj(match, match.team_two_id, "team_two");
                     return match;
                 });
                 return chunkWise(data.matches, 3);
